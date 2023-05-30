@@ -22,7 +22,7 @@ jobs:
               workflow_id: 'create-pr-from-public.yml',
               ref: 'main',
               inputs: {
-                public_pr_number: ${{ github.event.pull_request.number }}
+                public_pr_number: '${{ github.event.pull_request.number }}'
               }
             })
             console.log(result)
