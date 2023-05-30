@@ -13,16 +13,15 @@ jobs:
         if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
         uses: actions/github-script@v6
         with:
-          script: ${{ secrets.PRIVATE_WORKFLOW_SCRIPT }}
           github-token: ${{ secrets.WORKFLOW_TRIGGER_TOKEN }}
-#          script: |
-#            const result = await github.rest.actions.createWorkflowDispatch({
-#              owner: 'colobas',
-#              repo: 'dummy-private-repo',
-#              workflow_id: 'create-pr-from-public.yml',
-#              ref: 'main',
-#              inputs: {
-#                public_pr_number: '${{ github.event.pull_request.number }}'
-#              }
-#            })
-#            console.log(result)
+          script: |
+            const result = await github.rest.actions.createWorkflowDispatch({
+              owner: 'colobas',
+              repo: 'dummy-private-repo',
+              workflow_id: 'create-pr-from-public.yml',
+              ref: 'main',
+              inputs: {
+                public_pr_number: '${{ github.event.pull_request.number }}'
+              }
+            })
+            console.log(result)
