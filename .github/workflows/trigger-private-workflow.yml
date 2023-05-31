@@ -10,7 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger private workflow
-        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+        if: >
+          github.event_name == 'pull_request' &&
+          github.event.action == 'closed' &&
+          github.event.pull_request.merged == true &&
+          !contains(github.head_ref, "pr-from-private-repo/")
+
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.WORKFLOW_TRIGGER_TOKEN }}
